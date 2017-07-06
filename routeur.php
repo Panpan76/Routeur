@@ -1,5 +1,7 @@
 <?php
 
+require_once 'includes/config.php';
+
 /**
  * Fonction magique appelée lors d'un appèle à une classe pour charger dynamiquement le fichier la contenant
  *
@@ -7,7 +9,8 @@
  */
 function __autoload($classe){
   $fichiers = array(
-    'classes/'.$classe.'.php'
+    'classes/'.$classe.'.php',
+    'controlleurs/'.$classe.'.php'
   );
   // Si on a plusieurs emplacement de classe
 
@@ -30,8 +33,12 @@ $parametres = array_merge($_GET, $_POST);
 
 // On récupère une instance de Routeur
 $routeur = Routeur::getInstance();
+
+// On charge le fichier de routes
+$routeur->setRoutes(FICHIER_ROUTES);
+
 // On demande la page voulue avec les données de la requête
-$routeur->redirect($url, $params);
+$routeur->redirect($url, $parametres);
 
 
 ?>

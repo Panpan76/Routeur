@@ -23,6 +23,12 @@ class Routeur{
    */
   private $url;
 
+  /**
+   * @var array|null  $routes     Routes possibles utilisées par le Routeur
+   */
+  private $routes;
+
+
 
   ################
   ### Méthodes ###
@@ -75,16 +81,63 @@ class Routeur{
   public function redirect($url, $data = null){
     // On récupère les informations de la page
     $infos = $this->getPage($url);
+
+    // On définit notre controlleur
+    $controlleur = new $infos['controlleur']();
+    $controlleur->setData($data); // Pour les données POST et GET
+
+    // On récupère la méthode est les paramètres de la route
+    $methode = $infos['methode'];
+    $params = $infos['params'];
+
+    // On appelle la méthode du controlleur avec les paramètres
+    call_user_func_array(array($controlleur, $methode), $params);
+    die();
   }
 
 
   /**
-   * Permet de récupérer les routes
+   * Permet de récupérer les routes depuis un fichier
    *
-   * @return array  Liste des routes possibles
+   * Charge les routes possibles pour le Routeur à partir d'un fichier
+   *
+   * @param string  $fichier  Emplacement du fichier contenant les routes
+   *
+   * @return void
    */
-  private function getRoutes(){
-    return null;
+  public function setRoutes($fichier){
+    // On vérifie que le fichier existe, sinon on stop
+    if(!file_exists($fichier)){
+      return false;
+    }
+
+    // On initialise les routes à null
+    $routes = array();
+
+    try{
+      // On récupère le type de fichier
+      $elements = explode('.', $fichier);
+      $type     = end($elements);
+      // On parse le fichier en entrée selon son type
+      switch($type){
+        case 'yml':
+          // TODO YAML file
+          break;
+
+        case 'php':
+          include $fichier;
+          break;
+      }
+    }
+    catch(Exception $e){
+      $f = __FILE__;
+      $l = __LINE__;
+      $m = __METHOD__;
+      $c = __CLASS__;
+      print("Une erreur est survenue dans $c::$m() ($f:$l) : $e\n");
+    }
+
+    $this->routes = $routes;
   }
 
   /**
@@ -94,7 +147,7 @@ class Routeur{
    */
   private function getPage($url){
     // Pour chaque route
-    foreach($this->getRoutes() as $route => $infos){
+    foreach($this->routes as $route => $infos){
       // Si la route correspond à la requête de l'utilisateur
       if(preg_match("#^$route/?$#", $url, $matches)){
         // On pense à récupérer les paramètres de la route via $matches

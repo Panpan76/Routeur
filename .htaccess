@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  RewriteRule ^routeur.php$ routeur.php [L]
   RewriteRule ^(.*)$ routeur.php?page=$1 [L]
 </IfModule>
