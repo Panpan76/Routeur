@@ -42,7 +42,7 @@ class Routeur{
    * @return Routeur
    */
   private function __construct(){
-  
+
     // On charge le fichier de routes
     $this->setRoutes(FICHIER_ROUTES);
     return $this;

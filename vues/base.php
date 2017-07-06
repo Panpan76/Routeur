@@ -49,7 +49,7 @@ if(DEBUG){
     <div class="route">
       Route
       <div class="routes">
-        Pattern : <?php $global->route; ?><br />
+        Pattern : <?= $global->route; ?><br />
         Controlleur : <?= $global->controlleur; ?><br />
         Méthode :
         <?php
