@@ -1,27 +1,10 @@
 <?php
 
 require_once 'includes/config.php';
+require_once 'includes/functions.php';
 
-/**
- * Fonction magique appelée lors d'un appèle à une classe pour charger dynamiquement le fichier la contenant
- *
- * @return boolean
- */
-function __autoload($classe){
-  $fichiers = array(
-    'classes/'.$classe.'.php',
-    'controlleurs/'.$classe.'.php'
-  );
-  // Si on a plusieurs emplacement de classe
-
-  foreach($fichiers as $fichier){
-    if(file_exists($fichier)){
-      require_once $fichier;
-      return true;
-    }
-  }
-  return false;
-}
+$global = Glob::getInstance();
+$global->debutGenerationPage = microtime(true);
 
 // On récupère la page
 $url = $_GET['page'];

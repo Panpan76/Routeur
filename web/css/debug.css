@@ -1,0 +1,37 @@
+#debug{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: rgba(25, 100, 100, 1);
+}
+
+#debug div{
+  display: inline-block;
+  min-width: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 50px;
+  text-align: center;
+  border-right: 1px solid black;
+}
+
+#debug .sql .requetes, #debug .route .routes{
+	line-height: 15px;
+	display: none;
+	z-index: 0;
+	position: fixed;
+	bottom: 0;
+  padding: 15px;
+  padding-left: 30px;
+  text-align: left;
+  border: 1px solid black;
+  background: rgba(25, 100, 100, 0.5);
+  margin-left: -15px;
+}
+
+#debug .sql:hover .requetes, #debug .sql .requetes:hover, #debug .route:hover .routes, #debug .route .routes:hover{
+  bottom: 50px;
+	display: block;
+}

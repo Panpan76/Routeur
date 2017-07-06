@@ -90,6 +90,13 @@ class Routeur{
     $methode = $infos['methode'];
     $params = $infos['params'];
 
+    // On stock tout ça en global
+    $global = Glob::getInstance();
+    $global->route        = $infos['route'];
+    $global->controlleur  = $infos['controlleur'];
+    $global->methode      = $infos['methode'];
+    $global->arguments    = $infos['params'];
+
     // On appelle la méthode du controlleur avec les paramètres
     call_user_func_array(array($controlleur, $methode), $params);
     die();
@@ -152,7 +159,7 @@ class Routeur{
       if(preg_match("#^$route/?$#", $url, $matches)){
         // On pense à récupérer les paramètres de la route via $matches
 
-        $infos['route'] = $route;
+        $infos['route'] = $this->cleanRoute($route);
         $infos['params'] = array();
         // On ajoute les paramètres au retour
         for($i = 1; $i < count($matches); $i++){
@@ -165,7 +172,20 @@ class Routeur{
     return null;
   }
 
-
+  /**
+   * Permet d'avoir des routes lisibles
+   *
+   * @param string $route
+   *
+   * @return string
+   */
+  private function cleanRoute($route){
+    $route = str_replace('$', '', $route);
+    $route = str_replace('([^\/]+)', '{$var}', $route);
+    $route = str_replace('^', '', $route);
+    $route = str_replace('\/', '/', $route);
+    return $route;
+  }
 }
 
 ?>

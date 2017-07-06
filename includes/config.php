@@ -13,4 +13,12 @@
 define('FICHIER_ROUTES', realpath(__DIR__.'/routes.php'));
 define('DOSSIER_VUES', realpath(__DIR__.'/../vues/'));
 
+
+############
+### Vues ###
+############
+
+
+define('DEBUG', true);
+
 ?>
