@@ -17,9 +17,6 @@ $parametres = array_merge($_GET, $_POST);
 // On récupère une instance de Routeur
 $routeur = Routeur::getInstance();
 
-// On charge le fichier de routes
-$routeur->setRoutes(FICHIER_ROUTES);
-
 // On demande la page voulue avec les données de la requête
 $routeur->redirect($url, $parametres);
 
