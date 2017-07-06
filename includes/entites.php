@@ -10,6 +10,7 @@
  *        'type'    => <type>[,
  *        'colonne' => <colonne>,
  *        'entite'  => <Entite cible>,
+ *        'lien'    => <attribut cible>,
  *        'relation'=> <relation>]
  *      )
  *    )
@@ -38,6 +39,7 @@ $correspondances['Livre'] = array(
     'chapitres' => array(
       'type'    => 'objet',
       'entite'  => 'Chapitre',
+      'lien'    => 'livre',
       'relation'=> '1-n'
     ),
   )

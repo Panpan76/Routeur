@@ -37,6 +37,7 @@ define('BDD_PASS', '');
 ############
 
 
+
 define('DEBUG', true);
 
 ?>

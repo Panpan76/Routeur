@@ -21,6 +21,27 @@ if(DEBUG){
 ?>
   <div id="debug">
     <div class="sql">
+    <?php
+    $ge = GestionnaireEntite::getInstance();
+    echo $ge->getNbRequetes().' req';
+    ?>
+      <div class="requetes">
+        Requêtes éxecutées :
+        <ol>
+        <?php
+        foreach($ge->getRequetes() as $requete){
+          $req    = $requete['requete'];
+          if($requete['succes']){
+            $classe = 'succes';
+          }
+          else{
+            $classe = 'erreur';
+          }
+          echo "<li class='$classe'>$req</li>";
+        }
+        ?>
+        </ol>
+      </div>
     </div>
     <div class="vitesse">
     <?= convertirSecondes(microtime(true)-$global->debutGenerationPage); ?>

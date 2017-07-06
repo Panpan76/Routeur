@@ -3,8 +3,12 @@
 $routes = array(
   '' => array(
     'controlleur' => 'ControlleurDefaut',
-    'methode' => 'index'
+    'methode'     => 'index'
   ),
+  'livre\/([^\/]+)' => array(
+    'controlleur' => 'ControlleurLivre',
+    'methode'     => 'voir'
+  )
 );
 
 ?>
